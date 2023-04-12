@@ -3,6 +3,7 @@
 <!-- 
    Team Members: Guilherme Forssetto, Jacques Ehrardt and Pedro Soares.
  -->
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +12,11 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <style>
-   td{
-       border: solid 1px;
-       padding: 15px;
-      }
-      
+   td {
+      border: solid 1px;
+      padding: 15px;
+   }
+
    table {
       border-collapse: collapse;
       font-size: 25px;
@@ -24,6 +25,7 @@
       align-items: center;
    }
 </style>
+
 <body>
    <table>
 
@@ -31,21 +33,22 @@
 </body>
 <script>
    let sudoku = null;
+   let sudokuReady = null;
    let addBtn = $("<button>Add Sudoku</button>");
+   let valBtn = $("<button>Validate</button>");
    let table = $("table");
    let body = $("body");
-
-   $.getJSON("http://127.0.0.1:5500/data/source.json",(values)=> {
-         values.forEach((number) => {
-            sudoku = number.values;
-         })
+   $.getJSON("http://127.0.0.1:5501/data/source.json", (values) => {
+      values.forEach((number) => {
+         sudoku = number.values;
+      })
    })
 
-   let addTable = ()=> {
+   let addTable = () => {
       $("table").empty();
-      for(let row of sudoku) {
+      for (let row of sudoku) {
          let tr = $("<tr></tr>");
-         for(let val of row) {
+         for (let val of row) {
             let td = $("<td></td>");
             td.append(val);
             tr.append(td);
@@ -54,7 +57,23 @@
       }
 
    }
+
+   let call = () => {
+      sudokuReady = [];
+      let counter = 0;
+      for (let i = 0; i < 9; i++) {
+         let sRow = new Array()
+         for (let i = 0; i < 9; i++) {
+            sRow.push(parseInt($('td').eq(counter++).text()))
+         }
+         sudokuReady.push(sRow);
+      }
+      console.log(sudokuReady)
+   }
+
    addBtn.click(addTable);
-   body.prepend(addBtn);
+   valBtn.click(call);
+   body.prepend(addBtn, valBtn);
 </script>
+
 </html>
