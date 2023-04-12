@@ -32,6 +32,8 @@
    </table>
 </body>
 <script>
+   let sudokuCol = [[],[],[],[],[],[],[],[],[]];
+   let cubs = [[],[],[],[],[],[],[],[],[]];
    let sudoku = null;
    let sudokuReady = null;
    let addBtn = $("<button>Add Sudoku</button>");
@@ -43,6 +45,98 @@
          sudoku = number.values;
       })
    })
+
+   let check = (inputArray)=>{
+      let sum = 0;
+      for(let item of inputArray){
+         sum += item;
+      }
+      if(sum != 45){
+         return true;
+      }
+      else{
+         return false;
+      }
+   }
+
+   let checkRow = (inputArray)=>{
+      for(let row of inputArray){
+         if(check(row) == true){
+            return true;
+            break;
+         }
+      }
+      return false;
+   }
+
+   let checkCol = (inputArray)=>{
+      for(let row of inputArray) {
+         for(let idxCol in row){
+            sudokuCol[idxCol].push(row[idxCol]);
+         }
+      };
+      return checkRow(sudokuCol);
+   }
+
+   let checkCubes = (inputArray)=>{
+      for(let i in inputArray){
+         if(i < 3){
+            for(let x in inputArray[i]){
+               if(x < 3){
+                  cubs[0].push(inputArray[i][x]);
+               }
+               else if(x >= 3 && x < 6){
+                  cubs[1].push(inputArray[i][x]);
+               }
+               else{
+                  cubs[2].push(inputArray[i][x]);
+               }
+            }
+         }
+         else if(i >= 3 && i < 6){
+            for(let x in inputArray[i]){
+               if(x < 3){
+                  cubs[3].push(inputArray[i][x]);
+               }
+               else if(x >= 3 && x < 6){
+                  cubs[4].push(inputArray[i][x]);
+               }
+               else{
+                  cubs[5].push(inputArray[i][x]);
+               }
+            }
+         }
+         else{
+            for(let x in inputArray[i]){
+               if(x < 3){
+                  cubs[6].push(inputArray[i][x]);
+               }
+               else if(x >= 3 && x < 6){
+                  cubs[7].push(inputArray[i][x]);
+               }
+               else{
+                  cubs[8].push(inputArray[i][x]);
+               }
+            }
+         }
+      }
+      return checkRow(cubs);
+   }
+   
+   let checkSudoku = (inputArray)=>{
+      if(checkRow(inputArray)){
+         alert("Your sudoku is wrong!");
+      }
+      else if(checkCol(inputArray)){
+         alert("Your sudoku is wrong!");
+      }
+      else if(checkCubes(inputArray)){
+         alert("Your sudoku is wrong!");
+      }
+      else{
+         alert("Your sudoku is right!");
+      }
+   }
 
    let addTable = () => {
       $("table").empty();
