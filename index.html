@@ -8,11 +8,53 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Sudoku</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
+<style>
+   td{
+       border: solid 1px;
+       padding: 15px;
+      }
+      
+   table {
+      border-collapse: collapse;
+      font-size: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+</style>
 <body>
-   
+   <table>
+
+   </table>
 </body>
 <script>
-   
+   let sudoku = null;
+   let addBtn = $("<button>Add Sudoku</button>");
+   let table = $("table");
+   let body = $("body");
+
+   $.getJSON("http://127.0.0.1:5500/data/source.json",(values)=> {
+         values.forEach((number) => {
+            sudoku = number.values;
+         })
+   })
+
+   let addTable = ()=> {
+      $("table").empty();
+      for(let row of sudoku) {
+         let tr = $("<tr></tr>");
+         for(let val of row) {
+            let td = $("<td></td>");
+            td.append(val);
+            tr.append(td);
+         }
+         table.append(tr);
+      }
+
+   }
+   addBtn.click(addTable);
+   body.prepend(addBtn);
 </script>
 </html>
