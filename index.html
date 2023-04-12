@@ -40,6 +40,7 @@
    let valBtn = $("<button>Validate</button>");
    let table = $("table");
    let body = $("body");
+   $.getJSON("http://127.0.0.1:5501/data/source.json", (values) => {
 
    $.getJSON("http://127.0.0.1:5500/data/source.json", (values) => {
       values.forEach((number) => {
@@ -125,6 +126,8 @@
    }
    
    let checkSudoku = (inputArray)=>{
+   sudokuCol = [[],[],[],[],[],[],[],[],[]];
+   cubs = [[],[],[],[],[],[],[],[],[]];
       if(checkRow(inputArray)){
          alert("Your sudoku is wrong!");
       }
@@ -164,7 +167,7 @@
          sudokuReady.push(sRow);
       }
       checkSudoku(sudokuReady);
-      console.log(sudokuReady)
+      // console.log(sudokuReady)
    }
 
    addBtn.click(addTable);
