@@ -14,8 +14,28 @@
 <style>
    td {
       border: solid 1px;
-      padding: 15px;
+      width: 60px;
+      height: 60px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 30px;
    }
+
+   td:nth-child(3) {
+      border-right: 4px solid black;
+   }
+
+   td:nth-child(6) {
+      border-right: 4px solid black;
+   }
+
+   tr:nth-child(3) {
+      border-bottom: 4px solid black;
+   }
+
+   tr:nth-child(6) {
+      border-bottom: 4px solid black;
+   }  
 
    table {
       border-collapse: collapse;
@@ -24,6 +44,24 @@
       flex-direction: column;
       align-items: center;
    }
+
+   body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      row-gap: 2vh;
+   }
+
+   button {
+      width: 10%;
+      padding: 10px;
+      font-weight: 600;
+      border-radius: 10px;
+      background-color: darkred;
+      color: gainsboro;
+   }
+
 </style>
 
 <body>
@@ -41,11 +79,13 @@
    let table = $("table");
    let body = $("body");
 
-   $.getJSON("http://127.0.0.1:5500/data/source.json", (values) => {
+   $.getJSON("./data/source.json", (values) => {
       values.forEach((number) => {
          sudoku = number.values;
       })
    })
+
+   // table.children().eq(2).addCLass("border");
 
    let check = (inputArray)=>{
       let sum = 0;
